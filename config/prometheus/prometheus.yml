@@ -1,0 +1,13 @@
+global:
+  scrape_interval: 10s
+
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+      - targets: [ "localhost:9090" ]
+  - job_name: krakend
+    static_configs:
+      - targets: [ "krakend:9091" ]
+  - job_name: documents_service
+    static_configs:
+      - targets: [ "documents_service" ]
