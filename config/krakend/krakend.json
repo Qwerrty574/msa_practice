@@ -47,6 +47,13 @@
       "endpoint": "/v1/documents",
       "method": "GET",
       "output_encoding": "no-op",
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "jwk_url": "http://keycloak:8080/auth/realms/master/protocol/openid-connect/certs",
+          "disable_jwk_security": true
+        }
+      },
       "backend": [
         {
           "url_pattern": "/documents/",
@@ -62,8 +69,7 @@
             "http://documents_service"
           ]
         }
-      ],
-      "extra_config": {}
+      ]
     }
   ],
   "extra_config": {
