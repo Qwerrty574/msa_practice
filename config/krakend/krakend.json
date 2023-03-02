@@ -70,6 +70,103 @@
           ]
         }
       ]
+    },
+    {
+      "endpoint": "/v1/new_template",
+      "method": "POST",
+      "output_encoding": "no-op",
+      "backend": [
+        {
+          "url_pattern": "/templates/",
+          "encoding": "json",
+          "sd": "static",
+          "method": "POST",
+          "extra_config": {},
+          "host": [
+            "http://templates_service"
+          ]
+        }
+      ],
+      "extra_config": {}
+    },
+    {
+      "endpoint": "/v1/templates/{id}",
+      "method": "GET",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/templates/{id}",
+          "encoding": "json",
+          "sd": "static",
+          "method": "GET",
+          "extra_config": {},
+          "host": [
+            "http://templates_service"
+          ]
+        }
+      ],
+      "extra_config": {}
+    },
+    {
+      "endpoint": "/v1/templates",
+      "method": "GET",
+      "output_encoding": "no-op",
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "jwk_url": "http://keycloak:8080/auth/realms/master/protocol/openid-connect/certs",
+          "disable_jwk_security": true
+        }
+      },
+      "backend": [
+        {
+          "url_pattern": "/templates/",
+          "encoding": "no-op",
+          "sd": "static",
+          "method": "GET",
+          "is_collection": true,
+          "mapping": {
+            "collection": "templates"
+          },
+          "extra_config": {},
+          "host": [
+            "http://templates_service"
+          ]
+        }
+      ]
+    },
+    {
+      "endpoint": "/v1/data",
+      "method": "GET",
+      "extra_config": {},
+      "backend": [
+        {
+          "url_pattern": "/documents/",
+          "sd": "static",
+          "method": "GET",
+          "is_collection": true,
+          "mapping": {
+            "collection": "documents"
+          },
+          "extra_config": {},
+          "host": [
+            "http://documents_service"
+          ]
+        },
+        {
+          "url_pattern": "/templates/",
+          "sd": "static",
+          "method": "GET",
+          "is_collection": true,
+          "mapping": {
+            "collection": "templates"
+          },
+          "extra_config": {},
+          "host": [
+            "http://templates_service"
+          ]
+        }
+      ]
     }
   ],
   "extra_config": {
